@@ -1,0 +1,1 @@
+SELECT * FROM `v1-dev-main.calculated_report_vws.vw_e_segmatic_customer_path` 

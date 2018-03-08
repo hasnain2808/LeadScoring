@@ -1,0 +1,35 @@
+SELECT 
+l.Lead_Type__c,
+l.company,
+l.tenant_id__c,
+l.leadsource,
+l.Order_ID__c,
+l.Lead_Owner_Full_Name__c,
+l.Original_Lead_Owner__c,
+l.Device_Type__c,
+l.Number_of_products_selling__c,
+l.Reason_Not_Qualified__c,
+l.SMS_Opt_in__c,
+l.Timezone_editable__c,
+l.TimeZone__c,
+l.Industry__c,
+l.SocialSignUp__c,
+l.Gender__c ,
+l.Last_Login_from_Admin__c,
+l.Have_products__c,
+l.Position__c
+,l.country
+,l.Status
+,l.CreatedDate as lead_createdate
+,l.isconverted as converted_to_opp
+,opps.createddate as opp_createdate
+,opps.iswon
+,opps.CloseDate
+
+
+FROM `v1-dev-main.salesforce.vw_leads` as l
+LEFT JOIN `v1-dev-main.salesforce.vw_opportunities`as opps ON
+CAST(l.ConvertedOpportunityId as string) =  CAST(opps.Id as string)
+
+WHERE l.leadsource in ('V2 Sales', 'V1 Sales')
+ORDER BY l.Createddate DESC
