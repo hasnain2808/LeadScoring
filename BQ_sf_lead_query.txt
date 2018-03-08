@@ -1,35 +1,36 @@
-SELECT 
-l.Lead_Type__c,
-l.company,
-l.tenant_id__c,
-l.leadsource,
-l.Order_ID__c,
-l.Lead_Owner_Full_Name__c,
-l.Original_Lead_Owner__c,
-l.Device_Type__c,
-l.Number_of_products_selling__c,
-l.Reason_Not_Qualified__c,
-l.SMS_Opt_in__c,
-l.Timezone_editable__c,
-l.TimeZone__c,
-l.Industry__c,
-l.SocialSignUp__c,
-l.Gender__c ,
-l.Last_Login_from_Admin__c,
-l.Have_products__c,
-l.Position__c
-,l.country
-,l.Status
-,l.CreatedDate as lead_createdate
-,l.isconverted as converted_to_opp
-,opps.createddate as opp_createdate
-,opps.iswon
-,opps.CloseDate
-
-
-FROM `v1-dev-main.salesforce.vw_leads` as l
-LEFT JOIN `v1-dev-main.salesforce.vw_opportunities`as opps ON
-CAST(l.ConvertedOpportunityId as string) =  CAST(opps.Id as string)
-
-WHERE l.leadsource in ('V2 Sales', 'V1 Sales')
-ORDER BY l.Createddate DESC
+select
+	leads.lead_type__c,
+	leads.company,
+	leads.tenant_id__c,
+	leads.leadsource,
+	leads.order_id__c,
+	leads.lead_owner_full_name__c,
+	leads.original_lead_owner__c,
+	leads.device_type__c,
+	leads.number_of_products_selling__c,
+	leads.reason_not_qualified__c,
+	leads.sms_opt_in__c,
+	leads.timezone_editable__c,
+	leads.timezone__c,
+	leads.industry__c,
+	leads.socialsignup__c,
+	leads.gender__c ,
+	leads.last_login_from_admin__c,
+	leads.have_products__c,
+	leads.position__c,
+	leads.country,
+	leads.status,
+	leads.createddate as lead_createdate,
+	leads.isconverted as converted_to_opp,
+	opps.createddate as opp_createdate,
+	opps.iswon,
+	opps.closedate
+from
+	`v1-dev-main.salesforce.vw_leads` as leads
+left join
+	`v1-dev-main.salesforce.vw_opportunities` as opps on
+	cast(leads.convertedopportunityid as string) =  cast(opps.id as string)
+where
+	leads.leadsource in ('v2 sales', 'v1 sales')
+order by
+	leads.createddate desc
