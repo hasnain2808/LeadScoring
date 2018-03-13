@@ -1,6 +1,17 @@
-SELECT DISTINCT * FROM
+SELECT 
+DISTINCT * 
+FROM
 
-(SELECT tenantid as trial_id, trial_date, sub_id, sub_date from `v1-dev-main.stripe.vw_trials_cohort`
-UNION ALL
-SELECT trial_order_detail_id as trial_id, trial_date, sub_order_id as sub_id, sub_date from `v1-dev-main.v1_warehouse.vw_trials_cohort`)
+	(SELECT
+		 tenantid as trial_id, 
+		 trial_date, 
+		 sub_id, 
+		 sub_date 
+	 from `v1-dev-main.stripe.vw_trials_cohort`
+		UNION ALL
+	SELECT 
+		trial_order_detail_id as trial_id, 
+		trial_date, sub_order_id as sub_id, 
+		sub_date 
+	from `v1-dev-main.v1_warehouse.vw_trials_cohort`)
 WHERE trial_date >= '2015-01-01'
